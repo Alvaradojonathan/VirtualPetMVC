@@ -48,6 +48,14 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -96,6 +104,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -155,9 +165,32 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AnimalTypesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PetsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AnimalType.cs">
+      <DependentUpon>VirtualPet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pet.cs">
+      <DependentUpon>VirtualPet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VirtualPet.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VirtualPet.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VirtualPet.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VirtualPet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VirtualPet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VirtualPet.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -166,6 +199,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\cat.png" />
+    <Content Include="Content\images\dog.png" />
+    <Content Include="Content\images\rabbit.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -181,7 +217,24 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <EntityDeploy Include="Models\VirtualPet.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>VirtualPet.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\VirtualPet.edmx.diagram">
+      <DependentUpon>VirtualPet.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Models\VirtualPet.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>VirtualPet.Context.cs</LastGenOutput>
+      <DependentUpon>VirtualPet.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\VirtualPet.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>VirtualPet.edmx</DependentUpon>
+      <LastGenOutput>VirtualPet.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -213,16 +266,28 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\AnimalTypes\Create.cshtml" />
+    <Content Include="Views\AnimalTypes\Delete.cshtml" />
+    <Content Include="Views\AnimalTypes\Details.cshtml" />
+    <Content Include="Views\AnimalTypes\Edit.cshtml" />
+    <Content Include="Views\AnimalTypes\Index.cshtml" />
+    <Content Include="Views\Pets\Create.cshtml" />
+    <Content Include="Views\Pets\Delete.cshtml" />
+    <Content Include="Views\Pets\Details.cshtml" />
+    <Content Include="Views\Pets\Edit.cshtml" />
+    <Content Include="Views\Pets\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

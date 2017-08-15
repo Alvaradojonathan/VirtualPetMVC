@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="VirtualPetMVCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AnimalTypes">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PetType" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="TypeImage" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="AltTypeImage" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Pets">
+          <Key>
+            <PropertyRef Name="PetID" />
+          </Key>
+          <Property Name="PetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PetName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PetAge" Type="datetime" Nullable="false" />
+          <Property Name="PetType" Type="int" Nullable="false" />
+          <Property Name="HungerLevel" Type="int" Nullable="false" />
+          <Property Name="ThirstLevel" Type="int" Nullable="false" />
+          <Property Name="BoredomLevel" Type="int" Nullable="false" />
+          <Property Name="SicknessLevel" Type="int" Nullable="false" />
+          <Property Name="WasteLevel" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Pets_AnimalTypes1">
+          <End Role="AnimalTypes" Type="Self.AnimalTypes" Multiplicity="1" />
+          <End Role="Pets" Type="Self.Pets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnimalTypes">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="Pets">
+              <PropertyRef Name="PetType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VirtualPetMVCModelStoreContainer">
+          <EntitySet Name="AnimalTypes" EntityType="Self.AnimalTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pets" EntityType="Self.Pets" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Pets_AnimalTypes1" Association="Self.FK_Pets_AnimalTypes1">
+            <End Role="AnimalTypes" EntitySet="AnimalTypes" />
+            <End Role="Pets" EntitySet="Pets" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VirtualPetMVCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AnimalType">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PetType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TypeImage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AltTypeImage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pets" Relationship="Self.FK_Pets_AnimalTypes1" FromRole="AnimalTypes" ToRole="Pets" />
+        </EntityType>
+        <EntityType Name="Pet">
+          <Key>
+            <PropertyRef Name="PetID" />
+          </Key>
+          <Property Name="PetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PetName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PetAge" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PetType" Type="Int32" Nullable="false" />
+          <Property Name="HungerLevel" Type="Int32" Nullable="false" />
+          <Property Name="ThirstLevel" Type="Int32" Nullable="false" />
+          <Property Name="BoredomLevel" Type="Int32" Nullable="false" />
+          <Property Name="SicknessLevel" Type="Int32" Nullable="false" />
+          <Property Name="WasteLevel" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AnimalType" Relationship="Self.FK_Pets_AnimalTypes1" FromRole="Pets" ToRole="AnimalTypes" />
+        </EntityType>
+        <Association Name="FK_Pets_AnimalTypes1">
+          <End Role="AnimalTypes" Type="Self.AnimalType" Multiplicity="1" />
+          <End Role="Pets" Type="Self.Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnimalTypes">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="Pets">
+              <PropertyRef Name="PetType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VirtualPetMVCEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AnimalTypes" EntityType="Self.AnimalType" />
+          <EntitySet Name="Pets" EntityType="Self.Pet" />
+          <AssociationSet Name="FK_Pets_AnimalTypes1" Association="Self.FK_Pets_AnimalTypes1">
+            <End Role="AnimalTypes" EntitySet="AnimalTypes" />
+            <End Role="Pets" EntitySet="Pets" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VirtualPetMVCModelStoreContainer" CdmEntityContainer="VirtualPetMVCEntities">
+          <EntitySetMapping Name="AnimalTypes">
+            <EntityTypeMapping TypeName="VirtualPetMVCModel.AnimalType">
+              <MappingFragment StoreEntitySet="AnimalTypes">
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="PetType" ColumnName="PetType" />
+                <ScalarProperty Name="TypeImage" ColumnName="TypeImage" />
+                <ScalarProperty Name="AltTypeImage" ColumnName="AltTypeImage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pets">
+            <EntityTypeMapping TypeName="VirtualPetMVCModel.Pet">
+              <MappingFragment StoreEntitySet="Pets">
+                <ScalarProperty Name="PetID" ColumnName="PetID" />
+                <ScalarProperty Name="PetName" ColumnName="PetName" />
+                <ScalarProperty Name="PetAge" ColumnName="PetAge" />
+                <ScalarProperty Name="PetType" ColumnName="PetType" />
+                <ScalarProperty Name="HungerLevel" ColumnName="HungerLevel" />
+                <ScalarProperty Name="ThirstLevel" ColumnName="ThirstLevel" />
+                <ScalarProperty Name="BoredomLevel" ColumnName="BoredomLevel" />
+                <ScalarProperty Name="SicknessLevel" ColumnName="SicknessLevel" />
+                <ScalarProperty Name="WasteLevel" ColumnName="WasteLevel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,82 @@
+﻿@model VitualPetMVC.Models.Pet
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pet</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PetName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PetName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PetAge)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PetAge)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HungerLevel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HungerLevel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ThirstLevel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ThirstLevel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BoredomLevel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BoredomLevel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SicknessLevel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SicknessLevel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WasteLevel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WasteLevel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AnimalType.PetType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnimalType.PetType)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PetID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

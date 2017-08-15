@@ -1,0 +1,75 @@
+﻿@model IEnumerable<VitualPetMVC.Models.Pet>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PetName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PetAge)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HungerLevel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThirstLevel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BoredomLevel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SicknessLevel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WasteLevel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AnimalType.PetType)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PetName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PetAge)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HungerLevel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ThirstLevel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BoredomLevel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SicknessLevel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WasteLevel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnimalType.PetType)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PetID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PetID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PetID })
+        </td>
+    </tr>
+}
+
+</table>

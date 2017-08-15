@@ -1,0 +1,45 @@
+﻿@model IEnumerable<VitualPetMVC.Models.AnimalType>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PetType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeImage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AltTypeImage)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PetType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeImage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AltTypeImage)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TypeID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TypeID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TypeID })
+        </td>
+    </tr>
+}
+
+</table>

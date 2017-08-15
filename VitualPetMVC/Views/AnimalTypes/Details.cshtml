@@ -1,0 +1,42 @@
+﻿@model VitualPetMVC.Models.AnimalType
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AnimalType</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PetType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PetType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeImage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AltTypeImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AltTypeImage)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TypeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
